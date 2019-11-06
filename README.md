@@ -1,7 +1,7 @@
 # Install
 ```shell script
 # Being inside csv_to_ndjson folder...
-$ npm install && npm link
+$ npm run installer
 ```
 
 
