@@ -14,20 +14,24 @@ fs.readFile(inFile, function(err, buf) {
         .length;
     let newString = buf
         .toString()
-        .replace(/'/g, "\\'")
-        .replace(/"/g, '\\"')
+        .replace(/[^\x00-\x7F]/g, "a")
+        .replace(/\\/g, '&#92;')
+        .replace(/\\([\s\S])|(")/g,"\\$1$2")
         .split("\n")
         .map(line => {
-            let commaCount = (line.match(/,/g) || []).length;
+            line = line.replace(/(\r\n|\n|\r)/gm, "");
+            let commaCount = (line.match(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/g) || []).length;
             if (commaCount < nbOfColumns)
                 for(let i = 0; i< (nbOfColumns - commaCount); i++)
                     line += ","
 
-            line = line.split(",").map( e => {
-                if(isNaN(e))
+            line = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map( e => {
+                if(isNaN(e) || e === "" || e === "Infinity")
                     return '"' + e + '"'
-                else
-                    return e
+                else{
+                    return JSON.parse(e)
+                }
+                    
             }).join()
             line = "[" + line + "]\n";
             return line
