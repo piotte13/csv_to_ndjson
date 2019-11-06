@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const csvToNdjson = require('csv-to-ndjson');
 var fs = require('fs');
 
@@ -31,9 +33,6 @@ fs.readFile(inFile, function(err, buf) {
             line = "[" + line + "]\n";
             return line
         });
-
-
-    console.log(newString[1]);
 
     fs.writeFile(outFile, newString.join(''), function(err) {
         if (err) throw err;

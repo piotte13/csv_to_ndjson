@@ -1,5 +1,12 @@
-# Usage
+# Install
 ```shell script
 # Being inside csv_to_ndjson folder...
-$ node index.js path/to/infile.csv path/to/outfile.json 
+$ npm link
+```
+
+
+# Usage
+```shell script
+# Anywhere
+$ csvtondjson path/to/infile.csv path/to/outfile.json 
 ```
