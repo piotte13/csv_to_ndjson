@@ -1,6 +1,5 @@
 #! /usr/bin/env node
 
-const csvToNdjson = require('csv-to-ndjson');
 var fs = require('fs');
 
 const args = process.argv.slice(2);
